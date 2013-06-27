@@ -1212,6 +1212,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nC
     if (cmdParser.IsSpecified(kArgSkipPreload))
         gSkipPreload = true;
 #endif
+    gSkipPreload = true;
 
     plFileName serverIni = "server.ini";
     if (cmdParser.IsSpecified(kArgServerIni))

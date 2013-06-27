@@ -119,7 +119,7 @@ void    plDebugInputInterface::RestoreDefaultKeyMappings( void )
 
     fControlMap->UnmapAllBindings();
 
-#ifndef PLASMA_EXTERNAL_RELEASE
+/*#ifndef PLASMA_EXTERNAL_RELEASE
 //  fControlMap->BindKey( KEY_SHIFT,    B_CONTROL_MODIFIER_FAST );
     fControlMap->BindKey( plShiftKeyCombo( KEY_EQUAL ),     B_CAMERA_DRIVE_SPEED_UP );
     fControlMap->BindKey( plShiftKeyCombo( KEY_DASH ),      B_CAMERA_DRIVE_SPEED_DOWN );
@@ -130,7 +130,7 @@ void    plDebugInputInterface::RestoreDefaultKeyMappings( void )
     fControlMap->BindKey( KEY_I,                            B_CAMERA_MOVE_UP );
     fControlMap->BindKey( KEY_K,                            B_CAMERA_MOVE_DOWN );
 //  fControlMap->BindKey( KEY_C,                            B_TOGGLE_DRIVE_MODE );
-#endif
+#endif*/
 }
 
 

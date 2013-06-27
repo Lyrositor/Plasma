@@ -363,14 +363,14 @@ void    plAvatarInputInterface::RestoreDefaultKeyMappings( void )
     fControlMap->BindKeyToConsoleCmd( KEY_F7,                                   "Game.KICreateMarker" );
     fControlMap->BindKeyToConsoleCmd( KEY_F8,                                   "Game.KICreateMarkerFolder" );
 
-#ifndef PLASMA_EXTERNAL_RELEASE
+/*#ifndef PLASMA_EXTERNAL_RELEASE
     fControlMap->BindKey( plShiftKeyCombo( KEY_P ),     B_CONTROL_TOGGLE_PHYSICAL );
     fControlMap->BindKey( KEY_U,                        B_CONTROL_MOVE_UP );
     fControlMap->BindKey( KEY_H,                        B_CONTROL_MOVE_DOWN );
     fControlMap->BindKey( plShiftKeyCombo( KEY_C ),     B_TOGGLE_DRIVE_MODE );
     
     fControlMap->BindKeyToConsoleCmd( KEY_L,            "NextStatusLog" );
-#endif
+#endif*/
 }
 
 void plAvatarInputInterface::SetLadderMode()
