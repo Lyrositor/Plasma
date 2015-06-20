@@ -111,19 +111,6 @@ public:
     static bool StaticAppMsg(const plString& msg);
     static bool StaticDebugMsg(const plString& msg);
 
-
-    // Deprecated
-    hsDeprecated("StaticErrorMsg with format is deprecated -- use plFormat instead")
-    static bool StaticErrorMsg(const char* fmt, ...);
-
-    hsDeprecated("StaticWarningMsg with format is deprecated -- use plFormat instead")
-    static bool StaticWarningMsg(const char* fmt, ...);
-
-    hsDeprecated("StaticAppMsg with format is deprecated -- use plFormat instead")
-    static bool StaticAppMsg(const char* fmt, ...);
-
-    hsDeprecated("StaticDebugMsg with format is deprecated -- use plFormat instead")
-    static bool StaticDebugMsg(const char* fmt, ...);
 };
 
 //

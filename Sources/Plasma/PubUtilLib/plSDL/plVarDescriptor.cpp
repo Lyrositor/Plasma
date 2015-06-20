@@ -152,8 +152,8 @@ bool plVarDescriptor::Read(hsStream* s)
     if (version != kVersion)
     {
         if (plSDLMgr::GetInstance()->GetNetApp())
-            plSDLMgr::GetInstance()->GetNetApp()->WarningMsg("SDL VarDescriptor version mismatch, read %d, should be %d - ignoring",
-            version, kVersion);
+            plSDLMgr::GetInstance()->GetNetApp()->WarningMsg(plFormat("SDL VarDescriptor version mismatch, read {}, should be {} - ignoring",
+            version, kVersion));
         return false;
     }
 

@@ -95,36 +95,6 @@ bool plNetApp::StaticDebugMsg(const plString& msg)
     return GetInstance()->DebugMsg(msg);
 }
 
-
-bool plNetApp::StaticErrorMsg(const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    return StaticErrorMsg(plString::IFormat(fmt, args));
-}
-
-bool plNetApp::StaticDebugMsg(const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    return StaticDebugMsg(plString::IFormat(fmt, args));
-}
-
-bool plNetApp::StaticWarningMsg(const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    return StaticWarningMsg(plString::IFormat(fmt, args));
-}
-
-bool plNetApp::StaticAppMsg(const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    return StaticAppMsg(plString::IFormat(fmt, args));
-}
-
-
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////

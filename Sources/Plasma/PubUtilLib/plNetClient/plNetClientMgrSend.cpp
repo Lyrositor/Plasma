@@ -119,8 +119,8 @@ int plNetClientMgr::ISendDirtyState(double secs)
             int localOwned=obj->IsLocallyOwned();
             if (localOwned==plSynchedObject::kNo)
             {
-                DebugMsg("Late rejection of queued SDL state, obj %s, sdl %s",
-                    state->fObjKey->GetName().c_str(), state->fSDLName.c_str());
+                DebugMsg(plFormat("Late rejection of queued SDL state, obj {}, sdl {}",
+                    state->fObjKey->GetName(), state->fSDLName));
                 continue;
             }
         }
@@ -288,8 +288,8 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
             uint32_t playerID = (*dstIDs)[i];
             if (playerID == NetCommGetPlayer()->playerInt)
                 continue;
-            hsLogEntry( DebugMsg( "\tAdding receiver: %lu" , playerID ) );
-            ((plNetMsgGameMessageDirected*)netMsgWrap)->Receivers()->AddReceiverPlayerID( playerID );
+            hsLogEntry(DebugMsg(plFormat("\tAdding receiver: {}u", playerID)));
+            ((plNetMsgGameMessageDirected*)netMsgWrap)->Receivers()->AddReceiverPlayerID(playerID);
         }
     }
     else
@@ -297,7 +297,7 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
 
     // check delivery timestamp
     if (msg->GetTimeStamp()<=hsTimer::GetSysSeconds())
-        msg->SetTimeStamp(0);   
+        msg->SetTimeStamp(0);
     else
         netMsgWrap->GetDeliveryTime().SetFromGameTime(msg->GetTimeStamp(), hsTimer::GetSysSeconds());   
 
@@ -334,7 +334,7 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
             bCast = true;
     }
     if (!directCom && !bCast && !dstIDs)
-        WarningMsg("Msg %s has no rcvrs or bcast instructions?", msg->ClassName());
+        WarningMsg(plFormat("Msg {} has no rcvrs or bcast instructions?", msg->ClassName()));
 
     hsAssert(!(directCom && bCast), "msg has both rcvrs and bcast instructions, rcvrs ignored");
     if (directCom && !bCast)

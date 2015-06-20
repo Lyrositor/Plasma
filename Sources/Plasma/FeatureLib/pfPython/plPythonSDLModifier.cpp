@@ -612,28 +612,28 @@ plPythonSDLModifier* plPythonSDLModifier::FindAgeSDL()
                     // we found it!
                     return sdlMod;
                 
-                plNetClientApp::StaticErrorMsg("pfmod %s has a nil python SDL modifier for age sdl %s", 
-                    pfmod->GetKeyName().c_str("?"), ageName.c_str());
+                plNetClientApp::StaticErrorMsg(plFormat("pfmod {} has a nil python SDL modifier for age sdl {}", 
+                    pfmod->GetKeyName().c_str("?"), ageName));
             }
             else
             {
                 if (!key)
-                    plNetClientApp::StaticErrorMsg("nil key %s for age sdl %s", ageName.c_str(), oid.StringIze().c_str());
+                    plNetClientApp::StaticErrorMsg(plFormat("nil key {} for age sdl {}", ageName, oid.StringIze()));
                 else
                 if (!key->ObjectIsLoaded())
-                    plNetClientApp::StaticErrorMsg("key %s not loaded for age sdl %s", 
-                        key->GetName().c_str("?"), ageName.c_str());
+                    plNetClientApp::StaticErrorMsg(plFormat("key {} not loaded for age sdl {}", 
+                        key->GetName().c_str("?"), ageName));
                 else
                 if (!plPythonFileMod::ConvertNoRef(key->ObjectIsLoaded()))
-                    plNetClientApp::StaticErrorMsg("key %s is not a python file mod for age sdl %s", 
-                        key->GetName().c_str("?"), ageName.c_str());
+                    plNetClientApp::StaticErrorMsg(plFormat("key {} is not a python file mod for age sdl {}", 
+                        key->GetName().c_str("?"), ageName));
             }
         }
         else
-            plNetClientApp::StaticErrorMsg("Invalid plUoid for age sdl %s", ageName.c_str());
+            plNetClientApp::StaticErrorMsg(plFormat("Invalid plUoid for age sdl {}", ageName));
     }
     else
-        plNetClientApp::StaticErrorMsg("Invalid plLocation for age sdl %s", ageName.c_str());
+        plNetClientApp::StaticErrorMsg(plFormat("Invalid plLocation for age sdl {}", ageName));
 
     // couldn't find one (maybe because we didn't look)
     return nil;

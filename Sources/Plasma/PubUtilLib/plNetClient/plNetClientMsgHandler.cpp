@@ -136,7 +136,7 @@ int plNetClientMsgHandler::ReceiveMsg(plNetMessage *& netMsg)
     switch(netMsg->ClassIndex())
     {
         default:
-            plNetClientMgr::GetInstance()->ErrorMsg( "Unknown msg: %s", netMsg->ClassName() );
+            plNetClientMgr::GetInstance()->ErrorMsg(plFormat("Unknown msg: {}", netMsg->ClassName()));
             return hsFail;
 
         MSG_HANDLER_CASE(plNetMsgTerminated)
@@ -286,8 +286,8 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgSDLState)
 
         // queue up state
         nc->fPendingLoads.push_back(pl);
-        hsLogEntry( nc->DebugMsg( "Added pending SDL delivery for %s:%s",
-                                  m->ObjectInfo()->GetObjectName().c_str(), des->GetName().c_str() ) );
+        hsLogEntry(nc->DebugMsg(plFormat("Added pending SDL delivery for {}:{}",
+            m->ObjectInfo()->GetObjectName(), des->GetName())));
     }
     else
         delete sdRec;
@@ -346,7 +346,8 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGameMessage)
                         int idx = nc->fTransport.FindMember(loadClone->GetOriginatingPlayerID());
                         if (idx == -1)
                         {
-                            hsLogEntry( nc->DebugMsg( "Ignoring load clone because player isn't in our players list: %d", loadClone->GetOriginatingPlayerID()) );
+                            hsLogEntry(nc->DebugMsg(plFormat("Ignoring load clone because player isn't in our players list: {}",
+                                loadClone->GetOriginatingPlayerID())));
                             return hsOK;
                         }
                     }
@@ -363,7 +364,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGameMessage)
                 m->GetDeliveryTime().ConvertToGameTime(&timeStamp, secs);
                 hsAssert(timeStamp>=secs, "invalid future timeStamp");
                 gameMsg->SetTimeStamp(timeStamp);
-                nc->DebugMsg("Converting game msg future timeStamp, curT=%f, futT=%f", secs, timeStamp);
+                nc->DebugMsg(plFormat("Converting game msg future timeStamp, curT={}, futT={}", secs, timeStamp));
             }
 
             // Do some basic security checks on the incoming message because
@@ -410,7 +411,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgVoice)
     // Filter ignored sender
     if ( VaultAmIgnoringPlayer( m->GetPlayerID() ) )
     {
-        hsLogEntry( nc->DebugMsg( "Ignoring voice chat from ignored player %lu", m->GetPlayerID() ) );
+        hsLogEntry(nc->DebugMsg(plFormat("Ignoring voice chat from ignored player {}u", m->GetPlayerID())));
         return hsOK;
     }
 
@@ -425,7 +426,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgVoice)
         {
             if (nc->GetListenList()->FindMember( mbr ))
             {       
-                hsLogEntry( nc->DebugMsg( "Ignoring voice chat from ignored player %lu", m->GetPlayerID() ) );
+                hsLogEntry(nc->DebugMsg(plFormat("Ignoring voice chat from ignored player {}u", m->GetPlayerID())));
                 return hsOK;
             }
         }
@@ -484,7 +485,8 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMembersList)
     {
         plNetTransportMember* mbr = new plNetTransportMember(nc);
         IFillInTransportMember(m->MemberListInfo()->GetMember(i), mbr);
-        hsLogEntry(nc->DebugMsg("\tAdding transport member, name=%s, p2p=%d, plrID=%d\n", mbr->AsString().c_str(), mbr->IsPeerToPeer(), mbr->GetPlayerID()));
+        hsLogEntry(nc->DebugMsg(plFormat("\tAdding transport member, name={}, p2p={}, plrID={}\n",
+            mbr->AsString(), mbr->IsPeerToPeer(), mbr->GetPlayerID())));
         int idx=nc->fTransport.AddMember(mbr);
         hsAssert(idx>=0, "Failed adding member?");
             
@@ -595,7 +597,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgInitialAgeStateSent)
         netMsg->ClassName(), netMsg->AsStdString().c_str(), netMsg->GetNetCoreMsgLen()) );
 */
 
-    nc->DebugMsg( "Initial age SDL count: %d", msg->GetNumInitialSDLStates( ) );
+    nc->DebugMsg(plFormat("Initial age SDL count: {}", msg->GetNumInitialSDLStates()));
 
     nc->SetRequiredNumInitialSDLStates( msg->GetNumInitialSDLStates() );
     nc->SetFlagsBit( plNetClientApp::kNeedInitialAgeStateCount, false );

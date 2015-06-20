@@ -159,20 +159,18 @@ struct plOperationTimer
         fRunning = true;
         fComment = comment;
         fStartTime = hsTimer::GetSeconds();
-        if ( fPrintAtStart )
-        {
-            hsLogEntry( plNetApp::StaticDebugMsg( "%s%s Timing: %s",
-            fSpacer.c_str(), fTag.c_str(), fComment.c_str() ) );
-        }
+        if (fPrintAtStart)
+            hsLogEntry(plNetApp::StaticDebugMsg(plFormat("{}{} Timing: {}",
+                fSpacer, fTag, fComment)));
     }
     void Stop()
     {
-        if ( !fRunning )
+        if (!fRunning)
             return;
         fRunning = false;
         fEndTime = hsTimer::GetSeconds()-fStartTime;
-        hsLogEntry( plNetApp::StaticDebugMsg( "%s%s Timed: %f secs: %s",
-            fSpacer.c_str(), fTag.c_str(), fEndTime, fComment.c_str() ) );
+        hsLogEntry(plNetApp::StaticDebugMsg(plFormat("{}{} Timed: {} secs: {}",
+            fSpacer, fTag, fEndTime, fComment)));
     }
     double GetTime() const { return fEndTime;}
 };

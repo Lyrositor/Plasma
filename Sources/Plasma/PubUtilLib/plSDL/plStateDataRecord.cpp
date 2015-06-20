@@ -268,22 +268,15 @@ bool plStateDataRecord::Read(hsStream* s, float timeConvert, uint32_t readOption
             if (idx>=fVarsList.size() || !fVarsList[idx]->ReadData(s, timeConvert, readOptions))
             {
                 if (plSDLMgr::GetInstance()->GetNetApp())
-                    plSDLMgr::GetInstance()->GetNetApp()->ErrorMsg("Failed reading SDL, desc %s", 
-                            fDescriptor ? fDescriptor->GetName().c_str("?") : "?");
+                    plSDLMgr::GetInstance()->GetNetApp()->ErrorMsg(plFormat("Failed reading SDL, desc {}", 
+                            fDescriptor ? fDescriptor->GetName().c_str("?") : "?"));
                 return false;
             }
         }
     }
-    catch (std::exception &e)
+    catch(...)
     {
-        hsAssert(false,
-            plFormat("Something bad happened ({}) while reading simple var data, desc:{}",
-                     e.what(), fDescriptor ? fDescriptor->GetName() : "?").c_str());
-        return false;
-    }
-    catch (...)
-    {
-        hsAssert(false,
+        hsAssert( false, 
             plFormat("Something bad happened while reading simple var data, desc:{}",
                      fDescriptor ? fDescriptor->GetName() : "?").c_str());
         return false;
@@ -309,24 +302,16 @@ bool plStateDataRecord::Read(hsStream* s, float timeConvert, uint32_t readOption
             if (idx>=fSDVarsList.size() || !fSDVarsList[idx]->ReadData(s, timeConvert, readOptions))    // calls plStateDataRecord::Read recursively
             {
                 if (plSDLMgr::GetInstance()->GetNetApp())
-                    plSDLMgr::GetInstance()->GetNetApp()->ErrorMsg("Failed reading nested SDL, desc %s", 
-                            fDescriptor ? fDescriptor->GetName().c_str("?") : "?");
+                    plSDLMgr::GetInstance()->GetNetApp()->ErrorMsg(plFormat("Failed reading nested SDL, desc {}", 
+                            fDescriptor ? fDescriptor->GetName().c_str("?") : "?"));
                 return false;
             }
         }
     }
-    catch (std::exception &e)
+    catch(...)
     {
-        hsAssert(false,
-            plFormat("Something bad happened ({}) while reading nested var data, desc:{}",
-                     e.what(), fDescriptor ? fDescriptor->GetName() : "?").c_str());
-        return false;
-    }
-    catch (...)
-    {
-        hsAssert(false,
-            plFormat("Something bad happened while reading nested var data, desc:{}",
-                     fDescriptor ? fDescriptor->GetName() : "?").c_str());
+        hsAssert(false, plFormat("Something bad happened while reading nested var data, desc: {}",
+            fDescriptor ? fDescriptor->GetName() : "?").c_str());
         return false;
     }
 
@@ -676,7 +661,7 @@ plStateVariable* plStateDataRecord::IFindVar(const VarsList& vars, const plStrin
     }
 
     if (plSDLMgr::GetInstance()->GetNetApp())
-        plSDLMgr::GetInstance()->GetNetApp()->ErrorMsg("Failed to find SDL var %s", name.c_str());
+        plSDLMgr::GetInstance()->GetNetApp()->ErrorMsg(plFormat("Failed to find SDL var {}", name));
 
     return nil;
 }
@@ -697,8 +682,8 @@ bool plStateDataRecord::ConvertTo( plStateDescriptor* other, bool force )
 
     hsAssert(other->GetVersion()>=fDescriptor->GetVersion(), "converting to an older state descriptor version?");
 
-    hsLogEntry( plNetApp::StaticDebugMsg( "SDR(%p) converting sdl record %s from version %d to %d (force:%d)", 
-        this, fDescriptor->GetName().c_str(), fDescriptor->GetVersion(), other->GetVersion(), force ) );
+    hsLogEntry(plNetApp::StaticDebugMsg(plFormat("SDR({}) converting sdl record {} from version {} to {} (force:{})", 
+        this, fDescriptor->GetName(), fDescriptor->GetVersion(), other->GetVersion(), force)));
 
     // make other StateData to represent other descriptor, 
     // this will be the destination for the convert operation

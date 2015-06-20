@@ -304,7 +304,8 @@ plNetLinkingMgr * plNetLinkingMgr::GetInstance()
 void plNetLinkingMgr::SetEnabled( bool b )
 {
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
-    hsLogEntry( nc->DebugMsg( "plNetLinkingMgr: %s -> %s", fLinkingEnabled?"Enabled":"Disabled",b?"Enabled":"Disabled" ) );
+    hsLogEntry(nc->DebugMsg(plFormat("plNetLinkingMgr: {} -> {}",
+        fLinkingEnabled?"Enabled":"Disabled",b?"Enabled":"Disabled")));
     fLinkingEnabled = b;
 }
 
@@ -461,7 +462,7 @@ bool plNetLinkingMgr::IProcessLinkingMgrMsg( plLinkingMgrMsg * msg )
         {
             // player wants to link to our age
             uint32_t playerID = msg->GetArgs()->GetInt( 0 );
-            hsLogEntry( nc->DebugMsg( "Linking player %lu to this age.", playerID ) );
+            hsLogEntry(nc->DebugMsg(plFormat("Linking player {}u to this age.", playerID)));
             LinkPlayerHere( playerID );
         }
         break;
@@ -882,8 +883,8 @@ uint8_t plNetLinkingMgr::IPreProcessLink(void)
         }
     }
 
-    hsLogEntry(nc->DebugMsg( "plNetLinkingMgr: Pre-Process: Linking with %s rules...",
-        plNetCommon::LinkingRules::LinkingRuleStr(link->GetLinkingRules())));
+    hsLogEntry(nc->DebugMsg(plFormat("plNetLinkingMgr: Pre-Process: Linking with {} rules...",
+        plNetCommon::LinkingRules::LinkingRuleStr(link->GetLinkingRules()))));
 
     //------------------------------------------------------------------------
     // SPECIAL CASE: StartUp: force basic link
@@ -900,8 +901,8 @@ uint8_t plNetLinkingMgr::IPreProcessLink(void)
     if (info->GetAgeFilename().CompareI(kAvCustomizationFilename) == 0)
         link->SetLinkingRules(plNetCommon::LinkingRules::kOriginalBook);
 
-    hsLogEntry(nc->DebugMsg("plNetLinkingMgr: Process: Linking with %s rules...",
-        plNetCommon::LinkingRules::LinkingRuleStr(link->GetLinkingRules())));
+    hsLogEntry(nc->DebugMsg(plFormat("plNetLinkingMgr: Process: Linking with {} rules...",
+        plNetCommon::LinkingRules::LinkingRuleStr(link->GetLinkingRules()))));
 
     switch (link->GetLinkingRules())
     {
@@ -1090,8 +1091,8 @@ uint8_t plNetLinkingMgr::IPreProcessLink(void)
         DEFAULT_FATAL(link->GetLinkingRules());
     }
 
-    hsLogEntry(nc->DebugMsg( "plNetLinkingMgr: Post-Process: Linking with %s rules...",
-        plNetCommon::LinkingRules::LinkingRuleStr(link->GetLinkingRules())));
+    hsLogEntry(nc->DebugMsg(plFormat("plNetLinkingMgr: Post-Process: Linking with {} rules...",
+        plNetCommon::LinkingRules::LinkingRuleStr(link->GetLinkingRules()))));
 
     hsAssert(info->HasAgeFilename(), "AgeLink has no AgeFilename. Link will fail.");
 

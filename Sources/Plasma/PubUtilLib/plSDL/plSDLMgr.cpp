@@ -156,7 +156,7 @@ int plSDLMgr::Write(hsStream* s, const plSDL::DescriptorList* dl)
     int bytes=s->GetPosition()-pos;
     if (fNetApp)
     {
-        hsLogEntry(fNetApp->DebugMsg("Writing %d SDL descriptors, %d bytes", num, bytes));
+        hsLogEntry(fNetApp->DebugMsg(plFormat("Writing {} SDL descriptors, {} bytes", num, bytes)));
     }
     return bytes;
 }
@@ -215,7 +215,7 @@ int plSDLMgr::Read(hsStream* s, plSDL::DescriptorList* dl)
     int bytes=s->GetPosition()-pos;
     if (fNetApp)
     {
-        hsLogEntry(fNetApp->DebugMsg("Reading %d SDL descriptors, %d bytes", num, bytes));
+        hsLogEntry(fNetApp->DebugMsg(plFormat("Reading {} SDL descriptors, {} bytes", num, bytes)));
     }
     return bytes;
 }

@@ -102,7 +102,7 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
     // set as new listen list
     if (changed)
     {   
-        DebugMsg("ListenList changed, forceSynch=%d\n", forceSynch);
+        DebugMsg(plFormat("ListenList changed, forceSynch={}\n", forceSynch));
 
         plNetMsgListenListUpdate llu;
         llu.SetPlayerID(GetPlayerID());
