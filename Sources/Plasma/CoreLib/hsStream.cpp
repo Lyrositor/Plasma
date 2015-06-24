@@ -1206,10 +1206,9 @@ bool hsBufferedStream::Close()
     if (fBufferReadIn + fReadDirect > 0)
         wasted -= int((float(fBufferReadOut+fReadDirect) / float(fBufferReadIn+fReadDirect)) * 100.f);
 
-    s.WriteFmt("%s,%d,%d,%u,%u,%u,%d,%s\n",
-        fFilename.c_str(), fBufferHits, fBufferMisses, fBufferReadIn, fBufferReadOut, fReadDirect,
-        wasted,
-        fCloseReason ? fCloseReason : "Unknown");
+    s.WriteString(plFormat("{},{},{},{},{},{},{},{}\n",
+        fFilename, fBufferHits, fBufferMisses, fBufferReadIn, fBufferReadOut, fReadDirect, wasted,
+        fCloseReason ? fCloseReason : "Unknown"));
 
     s.Close();
 #endif // LOG_BUFFERED
