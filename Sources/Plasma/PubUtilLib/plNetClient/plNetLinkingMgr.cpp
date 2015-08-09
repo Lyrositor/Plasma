@@ -304,8 +304,7 @@ plNetLinkingMgr * plNetLinkingMgr::GetInstance()
 void plNetLinkingMgr::SetEnabled( bool b )
 {
     plNetClientMgr * nc = plNetClientMgr::GetInstance();
-    hsLogEntry(nc->DebugMsg(plFormat("plNetLinkingMgr: {} -> {}",
-        fLinkingEnabled?"Enabled":"Disabled",b?"Enabled":"Disabled")));
+    hsLogEntry(nc->DebugMsg(plFormat("plNetLinkingMgr: {} -> {}", fLinkingEnabled?"Enabled":"Disabled", b?"Enabled":"Disabled")));
     fLinkingEnabled = b;
 }
 
@@ -462,7 +461,7 @@ bool plNetLinkingMgr::IProcessLinkingMgrMsg( plLinkingMgrMsg * msg )
         {
             // player wants to link to our age
             uint32_t playerID = msg->GetArgs()->GetInt( 0 );
-            hsLogEntry(nc->DebugMsg(plFormat("Linking player {}u to this age.", playerID)));
+            hsLogEntry(nc->DebugMsg(plFormat("Linking player {} to this age.", playerID)));
             LinkPlayerHere( playerID );
         }
         break;

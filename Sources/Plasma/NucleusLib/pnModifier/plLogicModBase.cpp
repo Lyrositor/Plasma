@@ -142,7 +142,8 @@ bool plLogicModBase::MsgReceive(plMessage* msg)
 
 #if 1
         plNetClientApp::GetInstance()->DebugMsg(plFormat("LM: LogicModifier {} recvd trigger request reply:{}, wasRequesting={}, t={}\n",
-            GetKeyName(), pSMsg->GetType() == plServerReplyMsg::kDeny ? "denied" : "confirmed", 
+            GetKeyName(),
+            pSMsg->GetType() == plServerReplyMsg::kDeny ? "denied" : "confirmed", 
             HasFlag(kRequestingTrigger), hsTimer::GetSysSeconds()));
 #endif
 

@@ -1187,8 +1187,8 @@ bool plSimpleStateVariable::ConvertTo(plSimpleVarDescriptor* toVar, bool force )
     if (fVar.GetType()==newType )
         return true;
 
-    hsLogEntry(plNetApp::StaticDebugMsg(plFormat("SSV({}) converting {} from {} to {}",
-        this, fVar.GetName(), fVar.GetTypeString(), toVar->GetTypeString())));
+    hsLogEntry(plNetApp::StaticDebugMsg(plFormat("SSV converting {} from {} to {}",
+        fVar.GetName(), fVar.GetTypeString(), toVar->GetTypeString())));
 
     switch(fVar.GetType())  // original type
     {
@@ -1327,7 +1327,7 @@ bool plSimpleStateVariable::Set(float* v, int idx)
     if (fVar.GetAtomicType()==plVarDescriptor::kFloat)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             fF[cnt+i]=v[i];
         IVarSet();
         return true;
@@ -1344,7 +1344,7 @@ bool plSimpleStateVariable::Set(uint8_t* v, int idx)
     if (fVar.GetAtomicType()==plVarDescriptor::kByte)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             fBy[cnt+i]=v[i];
         IVarSet();
         return true;
@@ -1361,7 +1361,7 @@ bool plSimpleStateVariable::Set(double* v, int idx)
     if (fVar.GetAtomicType()==plVarDescriptor::kDouble)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             fD[cnt+i]=v[i];
         IVarSet();
         return true;
@@ -1371,7 +1371,7 @@ bool plSimpleStateVariable::Set(double* v, int idx)
     {
         double secs=hsTimer::GetSysSeconds();
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             fT[cnt+i].SetFromGameTime(v[i], secs);      
         IVarSet();
         return true;
@@ -1534,7 +1534,7 @@ bool plSimpleStateVariable::Get(int* value, int idx) const
     if (fVar.GetAtomicType()==plVarDescriptor::kInt)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             value[i]=fI[cnt+i];
         return true;
     }
@@ -1542,7 +1542,7 @@ bool plSimpleStateVariable::Get(int* value, int idx) const
     if (fVar.GetAtomicType()==plVarDescriptor::kShort)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             value[i]=fS[cnt+i];
         return true;
     }
@@ -1550,7 +1550,7 @@ bool plSimpleStateVariable::Get(int* value, int idx) const
     if (fVar.GetAtomicType()==plVarDescriptor::kByte)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             value[i]=fBy[cnt+i];
         return true;
     }
@@ -1566,7 +1566,7 @@ bool plSimpleStateVariable::Get(short* value, int idx) const
     if (fVar.GetAtomicType()==plVarDescriptor::kShort)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             value[i]=fS[cnt+i];
         return true;
     }
@@ -1582,7 +1582,7 @@ bool plSimpleStateVariable::Get(uint8_t* value, int idx) const
     if (fVar.GetAtomicType()==plVarDescriptor::kByte)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             value[i]=fBy[cnt+i];
         return true;
     }
@@ -1599,7 +1599,7 @@ bool plSimpleStateVariable::Get(float* value, int idx) const
     if (fVar.GetAtomicType()==plVarDescriptor::kAgeTimeOfDay)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
         {
             if (plNetClientApp::GetInstance())
                 fF[cnt+i] = plNetClientApp::GetInstance()->GetCurrentAgeTimeOfDayPercent();
@@ -1611,7 +1611,7 @@ bool plSimpleStateVariable::Get(float* value, int idx) const
     if (fVar.GetAtomicType()==plVarDescriptor::kFloat)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             value[i]=fF[cnt+i];
         return true;
     }
@@ -1619,7 +1619,7 @@ bool plSimpleStateVariable::Get(float* value, int idx) const
     if (fVar.GetAtomicType()==plVarDescriptor::kDouble) 
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             value[i]=(float)fD[cnt+i];
         return true;
     }
@@ -1628,7 +1628,7 @@ bool plSimpleStateVariable::Get(float* value, int idx) const
     {
         double secs=hsTimer::GetSysSeconds();
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
         {
             double tmp;
             fT[cnt+i].ConvertToGameTime(&tmp, secs);
@@ -1649,7 +1649,7 @@ bool plSimpleStateVariable::Get(double* value, int idx) const
     if (fVar.GetAtomicType()==plVarDescriptor::kDouble)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             value[i]=fD[cnt+i];
         return true;
     }
@@ -1658,7 +1658,7 @@ bool plSimpleStateVariable::Get(double* value, int idx) const
     {
         double secs=hsTimer::GetSysSeconds();
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             fT[cnt+i].ConvertToGameTime(&value[i], secs);
 
         return true;
@@ -1675,7 +1675,7 @@ bool plSimpleStateVariable::Get(bool* value, int idx) const
     if (fVar.GetAtomicType()==plVarDescriptor::kBool)
     {
         int cnt=fVar.GetAtomicCount()*idx;
-        for(int i=0;i<fVar.GetAtomicCount();i++)
+        for(int i=0; i<fVar.GetAtomicCount(); i++)
             value[i]=fB[cnt+i];
         return true;
     }
@@ -1774,11 +1774,8 @@ bool plSimpleStateVariable::IWriteData(hsStream* s, float timeConvert, int idx, 
 {
 #ifdef HS_DEBUGGING
     if (!IsUsed())
-    {
-        // hsAssert(false, "plSimpleStateVariable::WriteData doesn't contain data?");
-        plNetApp::StaticWarningMsg("plSimpleStateVariable::WriteData Var %s doesn't contain data?",
-            GetName().c_str());
-    }
+        plNetApp::StaticWarningMsg(plFormat("plSimpleStateVariable::WriteData Var {} doesn't contain data?",
+            GetName()));
 #endif
 
     int j=idx*fVar.GetAtomicCount();
@@ -1944,11 +1941,8 @@ bool plSimpleStateVariable::WriteData(hsStream* s, float timeConvert, uint32_t w
 {
 #ifdef HS_DEBUGGING
     if (!IsUsed())
-    {
-        // hsAssert(false, "plSimpleStateVariable::WriteData Var doesn't contain data?");
-        plNetApp::StaticWarningMsg("plSimpleStateVariable::WriteData Var %s doesn't contain data?",
-            GetName().c_str());
-    }
+        plNetApp::StaticWarningMsg(plFormat("plSimpleStateVariable::WriteData Var {} doesn't contain data?",
+            GetName()));
 #endif
 
     // write base class data
@@ -2066,7 +2060,7 @@ bool plSimpleStateVariable::ReadData(hsStream* s, float timeConvert, uint32_t re
     // read list
     if (!(saveFlags & plSDL::kSameAsDefault))
     {
-        for (int i=0;i<fVar.GetCount();i++)
+        for(int i=0;i<fVar.GetCount();i++)
             if (!IReadData(s, timeConvert, i, readOptions))
                 return false;
     }
@@ -2163,7 +2157,7 @@ void plSimpleStateVariable::NotifyStateChange(const plSimpleStateVariable* other
     {
         plNetObjectDebuggerBase::GetInstance()->LogMsg(
             plFormat("Var {} did {} send notification difference. Has {} notifiers with {} recipients.",
-                GetName(), !notify ? "NOT" : "", fChangeNotifiers.size(), numNotifiers).c_str());
+                     GetName(), !notify ? "NOT" : "", fChangeNotifiers.size(), numNotifiers).c_str());
     }
 
 }
@@ -2367,7 +2361,7 @@ void plSimpleStateVariable::DumpToStream(hsStream* stream, bool dirtyOnly, int l
 //
 void plSimpleStateVariable::SetFromDefaults(bool timeStampNow)
 {
-    for(int i=0;i<GetCount();i++)
+    for(int i=0; i<GetCount(); i++)
         SetFromString(GetVarDescriptor()->GetDefault(), i, timeStampNow);
 }
 
@@ -2401,19 +2395,15 @@ void plSDStateVariable::Resize(int cnt)
 
     // shrinking
     if (cnt<origCnt)
-    {
-        for(int i=cnt;i<origCnt;i++)
+        for(int i=cnt; i<origCnt; i++)
             delete fDataRecList[i];
-    }
 
     fDataRecList.resize(cnt);
 
     // growing
     if (cnt>origCnt)
-    {
-        for(int i=origCnt;i<cnt;i++)
+        for(int i=origCnt; i<cnt; i++)
             fDataRecList[i] = new plStateDataRecord(fVarDescriptor->GetStateDescriptor());
-    }
 
     SetDirty(true);
     SetUsed(true);
@@ -2444,7 +2434,8 @@ void plSDStateVariable::Alloc(plSDVarDescriptor* sdvd, int listSize)
 
         int cnt = listSize==-1 ? sdvd->GetCount() : listSize;
         fDataRecList.resize(cnt); 
-        for (int j=0;j<cnt; j++)
+        int j;
+        for (j=0;j<cnt; j++)
             InsertStateDataRecord(new plStateDataRecord(sdvd->GetStateDescriptor()), j);
     }
 }
@@ -2462,7 +2453,8 @@ void plSDStateVariable::Alloc(int listSize)
 //
 void plSDStateVariable::IDeInit()
 {
-    for (DataRecList::iterator it = fDataRecList.begin(); it != fDataRecList.end(); it++)
+    DataRecList::iterator it;
+    for (it=fDataRecList.begin(); it != fDataRecList.end(); it++)
         delete *it;
     fDataRecList.clear();
     delete fVarDescriptor;
@@ -2495,11 +2487,9 @@ void plSDStateVariable::UpdateFrom(plSDStateVariable* other, uint32_t writeOptio
     bool dirtyOnly = (writeOptions & plSDL::kDirtyOnly);
 
     for(int i=0; i<other->GetCount(); i++)
-    {
         if ( (dirtyOnly && other->GetStateDataRecord(i)->IsDirty()) ||
              (!dirtyOnly &&other->GetStateDataRecord(i)->IsUsed()) )
             fDataRecList[i]->UpdateFrom(*other->GetStateDataRecord(i), writeOptions);
-    }
 }
 
 //
@@ -2509,12 +2499,15 @@ void plSDStateVariable::ConvertTo(plSDStateVariable* otherSDVar, bool force )
 {
     plStateDescriptor* otherSD=otherSDVar->GetSDVarDescriptor()->GetStateDescriptor();
 
-    hsLogEntry(plNetApp::StaticDebugMsg(plFormat("SDSV({}) converting {} from {} to {} (force:{})",
-        this, fVarDescriptor->GetName(), fVarDescriptor->GetTypeString(),
+    hsLogEntry(plNetApp::StaticDebugMsg(plFormat("SDSV converting {} from {} to {} (force:{})",
+        fVarDescriptor->GetName(), fVarDescriptor->GetTypeString(),
         otherSDVar->GetSDVarDescriptor()->GetTypeString(), force)));
 
-    for(int j=0;j<GetCount(); j++)
+    int j;
+    for(j=0;j<GetCount(); j++)
+    {
         GetStateDataRecord(j)->ConvertTo( otherSD, force );
+    }
 }       
 
 bool plSDStateVariable::IsDirty() const
@@ -2522,7 +2515,8 @@ bool plSDStateVariable::IsDirty() const
     if (plStateVariable::IsDirty())
         return true;
 
-    for(int j=0;j<GetCount(); j++)
+    int j;
+    for(j=0;j<GetCount(); j++)
         if (GetStateDataRecord(j)->IsDirty())
             return true;
     return false;
@@ -2531,7 +2525,8 @@ bool plSDStateVariable::IsDirty() const
 int plSDStateVariable::GetDirtyCount() const
 {
     int cnt=0;
-    for(int j=0;j<GetCount(); j++)
+    int j;
+    for(j=0;j<GetCount(); j++)
         if (GetStateDataRecord(j)->IsDirty())
             cnt++;
     return cnt;
@@ -2542,7 +2537,8 @@ bool plSDStateVariable::IsUsed() const
     if (plStateVariable::IsUsed())
         return true;
     
-    for(int j=0;j<GetCount(); j++)
+    int j;
+    for(j=0;j<GetCount(); j++)
         if (GetStateDataRecord(j)->IsUsed())
             return true;
     return false;
@@ -2551,7 +2547,8 @@ bool plSDStateVariable::IsUsed() const
 int plSDStateVariable::GetUsedCount() const
 {
     int cnt=0;
-    for(int j=0;j<GetCount(); j++)
+    int j;
+    for(j=0;j<GetCount(); j++)
         if (GetStateDataRecord(j)->IsUsed())
             cnt++;
     return cnt;
@@ -2560,7 +2557,8 @@ int plSDStateVariable::GetUsedCount() const
 void plSDStateVariable::GetUsedDataRecords(ConstDataRecList* recList) const
 {
     recList->clear();
-    for(int j=0;j<GetCount(); j++)
+    int j;
+    for(j=0;j<GetCount(); j++)
         if (GetStateDataRecord(j)->IsUsed())
             recList->push_back(GetStateDataRecord(j));
 }
@@ -2568,7 +2566,8 @@ void plSDStateVariable::GetUsedDataRecords(ConstDataRecList* recList) const
 void plSDStateVariable::GetDirtyDataRecords(ConstDataRecList* recList) const
 {
     recList->clear();
-    for(int j=0;j<GetCount(); j++)
+    int j;
+    for(j=0;j<GetCount(); j++)
         if (GetStateDataRecord(j)->IsDirty())
             recList->push_back(GetStateDataRecord(j));
 }
@@ -2600,7 +2599,7 @@ bool plSDStateVariable::ReadData(hsStream* s, float timeConvert, uint32_t readOp
     bool all = (cnt==fDataRecList.size());
 
     // read list
-    for(int i=0;i<cnt; i++)
+    for(int i=0; i<cnt; i++)
     {
         int idx;
         if (!all)
@@ -2642,8 +2641,8 @@ bool plSDStateVariable::WriteData(hsStream* s, float timeConvert, uint32_t write
     bool all = (writeCnt==fDataRecList.size());
 
     // write list
-    int written=0;
-    for(int i=0;i<total;i++)
+    int i, written=0;
+    for(i=0;i<total;i++)
     {
         if ( (dirtyOnly && fDataRecList[i]->IsDirty()) || 
             (!dirtyOnly && fDataRecList[i]->IsUsed()) )
@@ -2675,25 +2674,33 @@ void plSDStateVariable::DumpToObjectDebugger(bool dirtyOnly, int level) const
                          pad, GetName(), dirtyOnly, cnt).c_str());
 
     for (size_t i=0; i<GetCount(); i++)
-        if ((dirtyOnly && fDataRecList[i]->IsDirty()) || 
-            (!dirtyOnly && fDataRecList[i]->IsUsed()))
+    {
+        if ( (dirtyOnly && fDataRecList[i]->IsDirty()) || 
+            (!dirtyOnly && fDataRecList[i]->IsUsed()) )
+        {
             fDataRecList[i]->DumpToObjectDebugger(nil, dirtyOnly, level+1);
+        }
+    }
 }
 
 void plSDStateVariable::DumpToStream(hsStream* stream, bool dirtyOnly, int level) const
 {
     std::string pad;
-    for(int i=0;i<level; i++)
+    for(int i=0; i<level; i++)
         pad += "   ";
 
     int cnt = dirtyOnly ? GetDirtyCount() : GetUsedCount();
     stream->WriteString(plFormat("{}SDVar, name:{} dirtyOnly:{} count:{}",
                                  pad, GetName(), dirtyOnly, cnt));
 
-    for(int i=0;i<GetCount();i++)
-        if ((dirtyOnly && fDataRecList[i]->IsDirty()) || 
-            (!dirtyOnly && fDataRecList[i]->IsUsed()))
+    for(int i=0; i<GetCount(); i++)
+    {
+        if ( (dirtyOnly && fDataRecList[i]->IsDirty()) || 
+            (!dirtyOnly && fDataRecList[i]->IsUsed()) )
+        {
             fDataRecList[i]->DumpToStream(stream, nil, dirtyOnly, level+1);
+        }
+    }
 }
 
 //
@@ -2707,16 +2714,18 @@ bool plSDStateVariable::operator==(const plSDStateVariable &other) const
     if (GetCount() != other.GetCount())
         return false;   // different list sizes
 
-    for(int i=0;i<GetCount(); i++)
-        if (!(*GetStateDataRecord(i) == *other.GetStateDataRecord(i)))
+    for(int i=0; i<GetCount(); i++)
+    {
+        if (! (*GetStateDataRecord(i) == *other.GetStateDataRecord(i)))
             return false;
+    }
 
     return true;
 }
 
 void plSDStateVariable::SetFromDefaults(bool timeStampNow)
 {
-    for(int i=0;i<GetCount(); i++)
+    for(int i=0; i<GetCount(); i++)
         GetStateDataRecord(i)->SetFromDefaults(timeStampNow);
 }
 
@@ -2727,12 +2736,12 @@ void plSDStateVariable::TimeStamp( const plUnifiedTime & ut/*=plUnifiedTime::Get
 
 void plSDStateVariable::FlagNewerState(const plSDStateVariable& other, bool respectAlwaysNew)
 {
-    for(int i=0;i<GetCount(); i++)
+    for(int i=0; i<GetCount(); i++)
         GetStateDataRecord(i)->FlagNewerState(*other.GetStateDataRecord(i), respectAlwaysNew);
 }
 
 void plSDStateVariable::FlagAlwaysNewState()
 {
-    for(int i=0;i<GetCount(); i++)
+    for(int i=0; i<GetCount(); i++)
         GetStateDataRecord(i)->FlagAlwaysNewState();
 }

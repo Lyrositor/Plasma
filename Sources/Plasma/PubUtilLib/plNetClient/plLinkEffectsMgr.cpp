@@ -305,7 +305,8 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
     if (pTriggerMsg)
     {
         plNetApp::GetInstance()->DebugMsg(plFormat("Received LinkEffectsTriggerMsg, local={}, linkingIn={}, stealth={}", 
-            !msg->HasBCastFlag(plMessage::kNetNonLocal), !pTriggerMsg->IsLeavingAge(), pTriggerMsg->GetInvisLevel()));
+            !msg->HasBCastFlag(plMessage::kNetNonLocal),
+            !pTriggerMsg->IsLeavingAge(), pTriggerMsg->GetInvisLevel()));
 
         plKey linkKey = pTriggerMsg->GetLinkKey();
         if (linkKey == nil)
@@ -462,7 +463,7 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
 
         if (--pTriggerMsg->fEffects == 0)
         {
-            plNetApp::GetInstance()->DebugMsg("All link callbacks received.\n" );
+            plNetApp::GetInstance()->DebugMsg("All link callbacks received.\n");
             plgDispatch::Dispatch()->RegisterForExactType(plTimeMsg::Index(), GetKey());
         }
         else if (pTriggerMsg->fEffects < 0 )
@@ -473,7 +474,7 @@ bool plLinkEffectsMgr::MsgReceive(plMessage *msg)
         else
         {
             plNetApp::GetInstance()->DebugMsg(plFormat("{} link callbacks left until avatar {} links...\n", 
-                    pTriggerMsg->fEffects, pTriggerMsg->GetLinkKey()->GetName()));
+                     pTriggerMsg->fEffects, pTriggerMsg->GetLinkKey()->GetName()));
         }
         return true;
     }

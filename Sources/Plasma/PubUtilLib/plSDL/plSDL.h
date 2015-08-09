@@ -516,7 +516,7 @@ private:
     bool IParseStateDesc(const plFileName& fileName, hsStream* stream, char token[],
                          plStateDescriptor*& curDesc) const;
 
-	void DebugMsg(const plString& msg) const;
+    void DebugMsg(const plString& msg) const;
 
 public:
 

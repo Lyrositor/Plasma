@@ -251,10 +251,8 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
     plNetPlayerIDList* dstIDs = msg->GetNetReceivers();
 
 #ifdef HS_DEBUGGING
-    if ( dstIDs )
-    {
-        DebugMsg( "Preparing to send %s to specific players.", msg->ClassName() );
-    }
+    if (dstIDs)
+        DebugMsg(plFormat("Preparing to send {} to specific players.", msg->ClassName()));
 #endif
 
     // get sender object
@@ -288,8 +286,8 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
             uint32_t playerID = (*dstIDs)[i];
             if (playerID == NetCommGetPlayer()->playerInt)
                 continue;
-            hsLogEntry(DebugMsg(plFormat("\tAdding receiver: {}u", playerID)));
-            ((plNetMsgGameMessageDirected*)netMsgWrap)->Receivers()->AddReceiverPlayerID(playerID);
+            hsLogEntry(DebugMsg(plFormat("\tAdding receiver: {}", playerID)));
+            ((plNetMsgGameMessageDirected*)netMsgWrap)->Receivers()->AddReceiverPlayerID( playerID );
         }
     }
     else
@@ -297,7 +295,7 @@ int plNetClientMgr::ISendGameMessage(plMessage* msg)
 
     // check delivery timestamp
     if (msg->GetTimeStamp()<=hsTimer::GetSysSeconds())
-        msg->SetTimeStamp(0);
+        msg->SetTimeStamp(0);   
     else
         netMsgWrap->GetDeliveryTime().SetFromGameTime(msg->GetTimeStamp(), hsTimer::GetSysSeconds());   
 

@@ -274,9 +274,16 @@ bool plStateDataRecord::Read(hsStream* s, float timeConvert, uint32_t readOption
             }
         }
     }
-    catch(...)
+    catch (std::exception &e)
     {
-        hsAssert( false, 
+        hsAssert(false,
+            plFormat("Something bad happened ({}) while reading simple var data, desc:{}",
+                     e.what(), fDescriptor ? fDescriptor->GetName() : "?").c_str());
+        return false;
+    }
+    catch (...)
+    {
+        hsAssert(false,
             plFormat("Something bad happened while reading simple var data, desc:{}",
                      fDescriptor ? fDescriptor->GetName() : "?").c_str());
         return false;
@@ -308,10 +315,18 @@ bool plStateDataRecord::Read(hsStream* s, float timeConvert, uint32_t readOption
             }
         }
     }
-    catch(...)
+    catch (std::exception &e)
     {
-        hsAssert(false, plFormat("Something bad happened while reading nested var data, desc: {}",
-            fDescriptor ? fDescriptor->GetName() : "?").c_str());
+        hsAssert(false,
+            plFormat("Something bad happened ({}) while reading nested var data, desc:{}",
+                     e.what(), fDescriptor ? fDescriptor->GetName() : "?").c_str());
+        return false;
+    }
+    catch (...)
+    {
+        hsAssert(false,
+            plFormat("Something bad happened while reading nested var data, desc:{}",
+                     fDescriptor ? fDescriptor->GetName() : "?").c_str());
         return false;
     }
 
@@ -682,8 +697,8 @@ bool plStateDataRecord::ConvertTo( plStateDescriptor* other, bool force )
 
     hsAssert(other->GetVersion()>=fDescriptor->GetVersion(), "converting to an older state descriptor version?");
 
-    hsLogEntry(plNetApp::StaticDebugMsg(plFormat("SDR({}) converting sdl record {} from version {} to {} (force:{})", 
-        this, fDescriptor->GetName(), fDescriptor->GetVersion(), other->GetVersion(), force)));
+    hsLogEntry(plNetApp::StaticDebugMsg(plFormat("SDR converting sdl record {} from version {} to {} (force:{})", 
+        fDescriptor->GetName(), fDescriptor->GetVersion(), other->GetVersion(), force)));
 
     // make other StateData to represent other descriptor, 
     // this will be the destination for the convert operation

@@ -49,12 +49,14 @@ static const int kTokenLen=256;
 
 void plSDLParser::DebugMsg(const plString& msg) const
 {
-    plNetApp* netApp = plSDLMgr::GetInstance()->GetNetApp();    
+    plNetApp* netApp = plSDLMgr::GetInstance()->GetNetApp();
+
     if (netApp)
         hsLogEntry(netApp->DebugMsg(msg));
     else
         hsStatusMessage(msg.c_str());
 }
+
 
 //
 // parsing stateDesc
@@ -121,7 +123,7 @@ bool plSDLParser::IParseStateDesc(const plFileName& fileName, hsStream* stream, 
             plString err = plFormat("Found duplicate SDL descriptor for {} version {}.\nFailed to parse file: {}",
                                     curDesc->GetName(), curDesc->GetVersion(), fileName);
             plNetApp::StaticErrorMsg(err);
-            hsAssert(false, err.c_str());
+            hsAssert( false, err.c_str() );
         }
     }
 
@@ -388,7 +390,11 @@ bool plSDLParser::IReadDescriptors() const
     {
         if (!ILoadSDLFile(files[i]))
         {
-            DebugMsg(plFormat("Error loading SDL file {}", files[i].AsString()));
+            plNetApp* netApp = plSDLMgr::GetInstance()->GetNetApp();
+            if (netApp)
+                netApp->ErrorMsg(plFormat("Error loading SDL file {}", files[i].AsString()));
+            else
+                hsStatusMessageF("Error loading SDL file %s", files[i].AsString().c_str());
             ret=false;
         }
         else

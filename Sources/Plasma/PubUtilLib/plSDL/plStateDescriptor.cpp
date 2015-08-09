@@ -88,8 +88,7 @@ bool plStateDescriptor::Read(hsStream* s)
     s->ReadLE(&rwVersion);
     if (rwVersion != kVersion)
     {
-        plNetApp::StaticWarningMsg(plFormat("StateDescriptor Read/Write version mismatch, mine {}, read {}",
-            kVersion, rwVersion));
+        plNetApp::StaticWarningMsg(plFormat("StateDescriptor Read/Write version mismatch, mine {}, read {}", kVersion, rwVersion));
         return false;
     }
 

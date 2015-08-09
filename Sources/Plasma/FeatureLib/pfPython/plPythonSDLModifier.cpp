@@ -625,7 +625,7 @@ plPythonSDLModifier* plPythonSDLModifier::FindAgeSDL()
                         key->GetName().c_str("?"), ageName));
                 else
                 if (!plPythonFileMod::ConvertNoRef(key->ObjectIsLoaded()))
-                    plNetClientApp::StaticErrorMsg(plFormat("key {} is not a python file mod for age sdl {}", 
+                    plNetClientApp::StaticErrorMsg(plFormat("key {} is not a python file mod for age sdl {}", 
                         key->GetName().c_str("?"), ageName));
             }
         }

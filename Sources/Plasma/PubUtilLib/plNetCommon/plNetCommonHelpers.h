@@ -161,7 +161,7 @@ struct plOperationTimer
         fStartTime = hsTimer::GetSeconds();
         if (fPrintAtStart)
             hsLogEntry(plNetApp::StaticDebugMsg(plFormat("{}{} Timing: {}",
-                fSpacer, fTag, fComment)));
+				fSpacer, fTag, fComment)));
     }
     void Stop()
     {

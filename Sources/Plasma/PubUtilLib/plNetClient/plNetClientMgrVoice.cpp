@@ -188,15 +188,15 @@ bool plNetClientMgr::IApplyNewListenList(std::vector<DistSqInfo>& newListenList,
         //
         GetListenList()->Clear();
 #ifdef HS_DEBUGGING
-        DebugMsg("New ListenList, size=%d\n", newListenList.size());
+        DebugMsg(plFormat("New ListenList, size={}\n", newListenList.size()));
 #endif
         for(i=0;i<newListenList.size(); i++)
         {
             GetListenList()->AddMember(newListenList[i].fMbr);
 #ifdef HS_DEBUGGING
-            DebugMsg("\tLL Member %d, name=%s, cNum=%d, dist=%f\n", 
-                i, newListenList[i].fMbr->AsString().c_str(),
-                newListenList[i].fMbr->GetPlayerID(), newListenList[i].fDistSq);
+            DebugMsg(plFormat("\tLL Member {}, name={}, cNum={}, dist={}\n", 
+                i, newListenList[i].fMbr->AsString(),
+                newListenList[i].fMbr->GetPlayerID(), newListenList[i].fDistSq));
 #endif
         }
     }       

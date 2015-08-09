@@ -334,8 +334,7 @@ bool plWin32LinkSound::MsgReceive( plMessage* pMsg )
         if (sMsg->GetSender()->GetUoid().GetClonePlayerID() == GetKey()->GetUoid().GetClonePlayerID())
         {
             SetProperty(kPropFullyDisabled, (sMsg->fMode == plAvatarStealthModeMsg::kStealthCloaked));
-            plNetApp::StaticDebugMsg(plFormat("plWin32LinkSound: rcvd avatarStealth msg, cloaked={}",
-                sMsg->fMode == plAvatarStealthModeMsg::kStealthCloaked));           
+            plNetApp::StaticDebugMsg(plFormat("plWin32LinkSound: rcvd avatarStealth msg, cloaked={}", sMsg->fMode == plAvatarStealthModeMsg::kStealthCloaked));           
         }
         return true;
     }

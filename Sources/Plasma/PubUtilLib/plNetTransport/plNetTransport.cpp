@@ -62,7 +62,7 @@ int plNetTransport::AddMember(plNetTransportMember* mbr)
     if (FindMember(mbr)==-1)
     {
         fMembers.push_back(mbr);
-        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg(plFormat("Adding member %s", mbr->AsString())));
+        hsLogEntry(plNetClientMgr::GetInstance()->DebugMsg(plFormat("Adding member {}", mbr->AsString())));
         plNetClientMgr::GetInstance()->GetListenList()->AddMember(mbr);
         plNetClientMgr::GetInstance()->GetTalkList()->AddMember(mbr);
         DumpState();
@@ -73,8 +73,7 @@ int plNetTransport::AddMember(plNetTransportMember* mbr)
 
 void plNetTransport::IUnSubscribeToAllChannelGrps(plNetTransportMember* mbr)
 {
-    int i;
-    for( i=mbr->GetNumSubscriptions()-1; i>=0 ; i-- )
+    for(int i=mbr->GetNumSubscriptions()-1; i>=0 ; i--)
     {
         int chan=mbr->GetSubscription(i);
         bool ok=UnSubscribeToChannelGrp(mbr, chan);
@@ -261,7 +260,7 @@ void plNetTransport::ClearMembers()
 //
 int plNetTransport::FindMember(uint32_t playerID) const
 {
-    for (int i=0; i<GetNumMembers(); i++)
+    for(int i=0; i<GetNumMembers(); i++)
     {
         plNetTransportMember* mbr = GetMember(i);
         if (mbr->GetPlayerID()==playerID)
@@ -275,7 +274,7 @@ int plNetTransport::FindMember(uint32_t playerID) const
 //
 int plNetTransport::FindMember(const plKey avKey) const
 {
-    for (int i=0; i < GetNumMembers(); i++)
+    for(int i=0; i<GetNumMembers(); i++)
     {
         plNetTransportMember* mbr = GetMember(i);
         if (mbr->GetAvatarKey()==avKey)
@@ -291,7 +290,7 @@ void plNetTransport::ClearChannelGrp(int channel)
 {
     const plMembersList* mList = &fChannelGroups[channel];
     int size=mList->size();
-    for (int i=0; i < size; i++)
+    for(int i=0; i<size; i++)
     {
         plNetTransportMember* tm=(*mList)[i];
         bool ok=tm->RemoveSubscription(channel);
@@ -308,27 +307,27 @@ void plNetTransport::DumpState()
     hsLogEntry(nc->DebugMsg("-------------------\n"));
     hsLogEntry(nc->DebugMsg(plFormat("Num Channels={}\n", fChannelGroups.size())));
 
-    for (int i=0;i<fChannelGroups.size();i++)
+    for(int i=0; i<fChannelGroups.size(); i++)
     {
         plMembersList* mList = &fChannelGroups[i];
         hsLogEntry(nc->DebugMsg(plFormat("\tChannel {}, num mbrs={}\n", i, mList->size())));
-        for (int j=0; j<mList->size(); j++)
+        for(int j=0; j<mList->size(); j++)
         {
             plNetTransportMember * mbr = (*mList)[j];
-            hsLogEntry(nc->DebugMsg(plFormat("\t\tMbr {}\n", (*mList)[j]->AsString())));
+            hsLogEntry(nc->DebugMsg(plFormat("\t\tMbr {}\n",(*mList)[j]->AsString())));
         }
     }
 
     nc->DebugMsg(plFormat("Num Mbrs={}\n", GetNumMembers()));
-    for (int i=0; i<GetNumMembers(); i++)
+    for(int i=0; i<GetNumMembers(); i++)
     {
         plNetTransportMember * mbr = GetMember(i);
-        hsLogEntry(nc->DebugMsg(plFormat("\tMbr {}, name={}, plyrID={}u, subs={}", 
+        hsLogEntry(nc->DebugMsg(plFormat("\tMbr {}, name={}, plyrID={}, subs={}", 
             i, mbr->AsString(), mbr->GetPlayerID(), mbr->GetNumSubscriptions())));
-        for(int j=0;j<mbr->GetNumSubscriptions();j++)
+        for(int j=0; j<mbr->GetNumSubscriptions(); j++)
             hsLogEntry(nc->DebugMsg(plFormat("\t\tSub {}, chan={}\n", j, mbr->GetSubscription(j))));
     }
-    hsLogEntry(nc->DebugMsg("\n"));
+    hsLogEntry( nc->DebugMsg("\n") );
 }
 
 void plNetTransport::SetNumChannels(int n)
@@ -355,9 +354,8 @@ void plNetTransport::GetMemberListDistSorted(plNetTransportMember**& listIn) con
 {
     // copy members list
     listIn = new plNetTransportMember* [fMembers.size()];
-    int i;
-    for (i=0; i<fMembers.size(); i++)
-            listIn[i]=fMembers[i];
+    for (int i=0; i<fMembers.size(); i++)
+		listIn[i]=fMembers[i];
 
     // sort members list
     qsort(listIn, fMembers.size(), sizeof(plNetTransportMember*), compare);

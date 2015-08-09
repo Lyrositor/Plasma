@@ -601,10 +601,10 @@ void plNetClientMgr::ICheckPendingStateLoad(double secs)
 #ifdef HS_DEBUGGING
             if (plNetObjectDebugger::GetInstance()->IsDebugObject(synchObj))
             {
-                DebugMsg("Delivering SDL State '%s' to %s owned key %s",
-                    msg->GetState()->GetDescriptor()->GetName().c_str(),
+                DebugMsg(plFormat("Delivering SDL State '{}' to {} owned key {}",
+                    msg->GetState()->GetDescriptor()->GetName(),
                     (synchObj->IsLocallyOwned() == plSynchedObject::kYes) ? "locally" : "remote",
-                    load->fUoid.StringIze().c_str());
+                    load->fUoid.StringIze()));
             }
 #endif
             msg->Send(load->fKey);
@@ -1036,7 +1036,7 @@ void plNetClientMgr::IncNumInitialSDLStates()
 {
     fNumInitialSDLStates++;
     DebugMsg(plFormat("Received {} initial SDL states", fNumInitialSDLStates));
-    if (GetFlagsBit(plNetClientApp::kNeedInitialAgeStateCount))
+    if (GetFlagsBit( plNetClientApp::kNeedInitialAgeStateCount ))
     {
         DebugMsg( "Need initial SDL state count" );
         return;
@@ -1418,7 +1418,7 @@ void plNetClientMgr::AddPendingLoad(PendingLoad *pl)
     // check for age SDL state
     if (!pl->fUoid.GetObjectName().IsNull() && !pl->fUoid.GetObjectName().Compare(plSDL::kAgeSDLObjectName))
     {
-        DebugMsg("Recv SDL state for age hook object, uoid=%s", pl->fUoid.StringIze().c_str());
+        DebugMsg(plFormat("Recv SDL state for age hook object, uoid={}", pl->fUoid.StringIze()));
         if (!pl->fKey)
             WarningMsg("Can't find age hook object, nil key!");
         else

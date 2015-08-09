@@ -155,9 +155,7 @@ int plSDLMgr::Write(hsStream* s, const plSDL::DescriptorList* dl)
 
     int bytes=s->GetPosition()-pos;
     if (fNetApp)
-    {
         hsLogEntry(fNetApp->DebugMsg(plFormat("Writing {} SDL descriptors, {} bytes", num, bytes)));
-    }
     return bytes;
 }
 
@@ -195,7 +193,7 @@ int plSDLMgr::Read(hsStream* s, plSDL::DescriptorList* dl)
     {
         if (fNetApp)
         {
-            hsLogEntry(fNetApp->DebugMsg("Something bad happened while reading SDLMgr data: %s", e.what()));
+            hsLogEntry(fNetApp->DebugMsg(plFormat("Something bad happened while reading SDLMgr data: {}", e.what())));
         }
         else
         {

@@ -287,7 +287,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgSDLState)
         // queue up state
         nc->fPendingLoads.push_back(pl);
         hsLogEntry(nc->DebugMsg(plFormat("Added pending SDL delivery for {}:{}",
-            m->ObjectInfo()->GetObjectName(), des->GetName())));
+                                  m->ObjectInfo()->GetObjectName(), des->GetName())));
     }
     else
         delete sdRec;
@@ -346,8 +346,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgGameMessage)
                         int idx = nc->fTransport.FindMember(loadClone->GetOriginatingPlayerID());
                         if (idx == -1)
                         {
-                            hsLogEntry(nc->DebugMsg(plFormat("Ignoring load clone because player isn't in our players list: {}",
-                                loadClone->GetOriginatingPlayerID())));
+                            hsLogEntry(nc->DebugMsg(plFormat("Ignoring load clone because player isn't in our players list: {}", loadClone->GetOriginatingPlayerID())));
                             return hsOK;
                         }
                     }
@@ -411,7 +410,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgVoice)
     // Filter ignored sender
     if ( VaultAmIgnoringPlayer( m->GetPlayerID() ) )
     {
-        hsLogEntry(nc->DebugMsg(plFormat("Ignoring voice chat from ignored player {}u", m->GetPlayerID())));
+        hsLogEntry(nc->DebugMsg(plFormat("Ignoring voice chat from ignored player {}", m->GetPlayerID())));
         return hsOK;
     }
 
@@ -426,7 +425,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgVoice)
         {
             if (nc->GetListenList()->FindMember( mbr ))
             {       
-                hsLogEntry(nc->DebugMsg(plFormat("Ignoring voice chat from ignored player {}u", m->GetPlayerID())));
+                hsLogEntry(nc->DebugMsg(plFormat("Ignoring voice chat from ignored player {}", m->GetPlayerID())));
                 return hsOK;
             }
         }
@@ -485,8 +484,7 @@ MSG_HANDLER_DEFN(plNetClientMsgHandler,plNetMsgMembersList)
     {
         plNetTransportMember* mbr = new plNetTransportMember(nc);
         IFillInTransportMember(m->MemberListInfo()->GetMember(i), mbr);
-        hsLogEntry(nc->DebugMsg(plFormat("\tAdding transport member, name={}, p2p={}, plrID={}\n",
-            mbr->AsString(), mbr->IsPeerToPeer(), mbr->GetPlayerID())));
+        hsLogEntry(nc->DebugMsg(plFormat("\tAdding transport member, name={}, p2p={}, plrID={}\n", mbr->AsString(), mbr->IsPeerToPeer(), mbr->GetPlayerID())));
         int idx=nc->fTransport.AddMember(mbr);
         hsAssert(idx>=0, "Failed adding member?");
             
